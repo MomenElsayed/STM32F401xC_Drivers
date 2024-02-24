@@ -1,0 +1,62 @@
+---
+:source:
+  :path: test
+  :file: test_GPIO.c
+:successes:
+- :test: test_GPIO_Init_ValidCfg
+  :line: 44
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_Init_InvalidPin
+  :line: 60
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_Init_InvalidMode
+  :line: 67
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_Init_InvalidSpeed
+  :line: 74
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_setPinValue_validSetState
+  :line: 82
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_setPinValue_validResetState
+  :line: 101
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_setPinValue_nullPointer
+  :line: 119
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_setPinValue_invalidPin
+  :line: 127
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_setPinValue_invalidState
+  :line: 142
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_getPinValue_validStateSet
+  :line: 157
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_getPinValue_validStateReset
+  :line: 180
+  :message: ''
+  :unity_test_time: 0
+- :test: test_GPIO_getPinValue_invalidPin
+  :line: 224
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 12
+  :passed: 12
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.09447400001226924
