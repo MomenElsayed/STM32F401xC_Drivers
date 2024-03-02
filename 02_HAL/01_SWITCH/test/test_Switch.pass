@@ -1,0 +1,46 @@
+---
+:source:
+  :path: test
+  :file: test_Switch.c
+:successes:
+- :test: test_SWITCH_Init_ValidConfiguration
+  :line: 34
+  :message: ''
+  :unity_test_time: 0
+- :test: test_SWITCH_Init_InvalidConfiguration
+  :line: 43
+  :message: ''
+  :unity_test_time: 0
+- :test: test_SWITCH_getState_InvalidName
+  :line: 53
+  :message: ''
+  :unity_test_time: 0
+- :test: test_SWITCH_getState_NullPtr
+  :line: 60
+  :message: ''
+  :unity_test_time: 0
+- :test: test_SWITCH_getState_ValidSwitchLowStatePullUp
+  :line: 81
+  :message: ''
+  :unity_test_time: 0
+- :test: test_SWITCH_getState_ValidSwitchHighStatePullUp
+  :line: 92
+  :message: ''
+  :unity_test_time: 0
+- :test: test_SWITCH_getState_ValidSwitchLowStatePullDown
+  :line: 103
+  :message: ''
+  :unity_test_time: 0
+- :test: test_SWITCH_getState_ValidSwitchHighStatePullDown
+  :line: 114
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 8
+  :passed: 8
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.21626649999961955

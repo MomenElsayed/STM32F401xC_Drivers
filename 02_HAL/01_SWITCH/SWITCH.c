@@ -39,9 +39,10 @@ SWITCH_ErrorStatus_t SWITCH_Init()
 
 SWITCH_ErrorStatus_t SWITCH_getState(u32 Switch_Name,u8* Switch_state)
 {
+    
     SWITCH_ErrorStatus_t Error_Status = SWITCH_OK;
     u8 pin_state = 0;
-    if(Switch_Name > _SWITCH_NUM)
+    if(Switch_Name >= _SWITCH_NUM)
     {
         Error_Status = SWITCH_InvalidName;
     }
@@ -52,7 +53,8 @@ SWITCH_ErrorStatus_t SWITCH_getState(u32 Switch_Name,u8* Switch_state)
     else{
         GPIO_getPinValue(Switches[Switch_Name].port ,Switches[Switch_Name].pin ,&pin_state);
         /*Shifting by 3 because it is the position of pull-up and pull-down bits in the defined value*/
-        *Switch_state = (pin_state ^ (Switches[Switch_Name].dir >> 3U));  
+        *Switch_state = (pin_state ^ (Switches[Switch_Name].dir >> 4U));
     }
     return Error_Status;
+
 }
