@@ -83,4 +83,32 @@ LED_ErrorStatus_t LED_Init();
  *****************************************************/
 LED_ErrorStatus_t LED_setState(u32 Led, u8 Led_state);
 
+/*****************************************************
+ * Function: LED_toggle
+ * Description: Toggles the state of a specified LED.
+ *
+ * Parameters:
+ *   - u32 LedName: The name/index of the LED to be toggled.
+ *
+ * Return:
+ *   - LED_ErrorStatus_t: Status of the operation.
+ *     - LED_OK: Operation successful.
+ *     - LED_InvalidLedName: The specified LED name/index is invalid.
+ *
+ * Usage:
+ *   LED_ErrorStatus_t status = LED_toggle(MY_LED);
+ *   if(status == LED_OK) {
+ *     // LED state toggled successfully
+ *   } else {
+ *     // Handle error
+ *   }
+ *
+ * Notes:
+ *   - This function reads the current state of the specified LED and inverts it.
+ *   - The LEDs are defined in an array `LEDS[]` with their corresponding port and pin information.
+ *   - The function ensures the provided LED name/index is valid before attempting to toggle the LED.
+ *****************************************************/
+LED_ErrorStatus_t LED_toggle(u32 LedName);
+
+
 #endif /*LED_H_*/

@@ -56,3 +56,19 @@ LED_ErrorStatus_t LED_setState(u32 LedName, u8 Led_state)
     return Error_Status;
 }
 
+LED_ErrorStatus_t LED_toggle(u32 LedName)
+{
+	LED_ErrorStatus_t Error_Status = LED_OK;
+	u8 led_state = 0;
+	if(LedName > _LEDS_NUM)
+	{
+	    Error_Status = LED_InvalidLedName;
+	}
+	else
+	{
+		GPIO_getPinValue(LEDS[LedName].port, LEDS[LedName].pin, &led_state);
+		GPIO_setPinValue(LEDS[LedName].port, LEDS[LedName].pin, led_state ^ 1);
+	}
+    return Error_Status;
+
+}
