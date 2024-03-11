@@ -48,16 +48,17 @@ SYSTICK_ErrorStatus_t SYSTICK_start(u32 SYSTICK_Clk)
 	return Error_Status;
 }
 
-SYSTICK_ErrorStatus_t SYSTICK_setTicks(u32 SYSTICK_ticks)
+SYSTICK_ErrorStatus_t SYSTICK_setTimeMS(u32 timeMS)
 {
 	SYSTICK_ErrorStatus_t Error_Status = SYSTICK_OK;
-	if (SYSTICK_ticks > SYSTICK_MAX_LOAD_VAL)
+	u32 loadValue = ((timeMS/1000)*SYSTICK_CLK_VALUE)-1;
+	if (loadValue > SYSTICK_MAX_LOAD_VAL)
 	{
 		Error_Status = SYSTICK_InvalidTicksValue;
 	}
 	else
 	{
-		SYSTICK->STK_LOAD = SYSTICK_ticks;
+		SYSTICK->STK_LOAD = loadValue;
 	}
 	return Error_Status;
 }

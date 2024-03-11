@@ -9,6 +9,7 @@
 #define SYSTICK_H_
 
 #include "std_types.h"
+#include "SYSTICK_Cfg.h"
 /*******************************************************************************
  *                                Type Decelerations                           *
  *******************************************************************************/
@@ -57,7 +58,7 @@ typedef void (*SYSTICKCallBackFn_t) (void);
 SYSTICK_ErrorStatus_t SYSTICK_start(u32 SYSTICK_Clk);
 
 /*****************************************************
- * Function: SYSTICK_setTicks
+ * Function: SYSTICK_setTimeMS
  * Description: Sets the number of ticks for the SysTick timer.
  *
  * Parameters:
@@ -69,7 +70,7 @@ SYSTICK_ErrorStatus_t SYSTICK_start(u32 SYSTICK_Clk);
  *     - SYSTICK_InvalidTicksValue: Returned if an invalid number of ticks is provided.
  *
  * Usage:
- *   SYSTICK_ErrorStatus_t status = SYSTICK_setTicks(1000);
+ *   SYSTICK_ErrorStatus_t status = SYSTICK_setTimeMS(1000);
  *   if(status == SYSTICK_OK) {
  *     // SysTick ticks set successfully
  *   }
@@ -78,7 +79,7 @@ SYSTICK_ErrorStatus_t SYSTICK_start(u32 SYSTICK_Clk);
  *   - This function sets the number of ticks for the SysTick timer, determining the period of interrupts.
  *   - The provided number of ticks should not exceed the maximum load value (SYSTICK_MAX_LOAD_VAL).
  *****************************************************/
-SYSTICK_ErrorStatus_t SYSTICK_setTicks(u32 SYSTICK_ticks);
+SYSTICK_ErrorStatus_t SYSTICK_setTimeMS(u32 SYSTICK_ticks);
 
 /*****************************************************
  * Function: SYSTICK_Stop
