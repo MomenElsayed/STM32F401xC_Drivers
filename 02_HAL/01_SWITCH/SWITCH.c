@@ -15,6 +15,8 @@
 
 extern const SWITCH_Cfg_t Switches[_SWITCH_NUM];
 
+u8 Switch_State[_SWITCH_NUM];
+
 SWITCH_ErrorStatus_t SWITCH_Init()
 {
     SWITCH_ErrorStatus_t Error_Status = SWITCH_OK;
@@ -41,7 +43,6 @@ SWITCH_ErrorStatus_t SWITCH_getState(u32 Switch_Name,u8* Switch_state)
 {
     
     SWITCH_ErrorStatus_t Error_Status = SWITCH_OK;
-    u8 pin_state = 0;
     if(Switch_Name >= _SWITCH_NUM)
     {
         Error_Status = SWITCH_InvalidName;
@@ -51,10 +52,36 @@ SWITCH_ErrorStatus_t SWITCH_getState(u32 Switch_Name,u8* Switch_state)
         Error_Status = SWITCH_NullPtr;
     }
     else{
-        GPIO_getPinValue(Switches[Switch_Name].port ,Switches[Switch_Name].pin ,&pin_state);
         /*Shifting by 3 because it is the position of pull-up and pull-down bits in the defined value*/
-        *Switch_state = (pin_state ^ (Switches[Switch_Name].dir >> 4U));
+        *Switch_state = !(Switch_State[Switch_Name] ^ (Switches[Switch_Name].dir >> 4UL));
     }
     return Error_Status;
+
+}
+
+void SW_Runnable(void)
+{
+	u8 iterator = 0;
+	u8 SW_CurrentState;
+	static u8 prev[_SWITCH_NUM] = {0};
+	static u8 counts[_SWITCH_NUM] = {0};
+	for(iterator = 0 ; iterator < _SWITCH_NUM ; iterator++)
+	{
+		GPIO_getPinValue(Switches[iterator].port, Switches[iterator].pin, &SW_CurrentState);
+		if(SW_CurrentState == prev[iterator])
+		{
+			counts[iterator]++;
+		}
+		else
+		{
+			counts[iterator] = 0;
+		}
+		if(counts[iterator] == 5) /*Scheduler Ticks 10 Ms so we Check for Stable State for 50 MS*/
+		{
+			Switch_State[iterator] = SW_CurrentState;
+			counts[iterator] = 0;
+		}
+		prev[iterator] = SW_CurrentState;
+	}
 
 }

@@ -20,8 +20,8 @@
  *******************************************************************************/
 #define SWITCH_PULL_UP          0x00000008      /*same values as GPIO Driver*/
 #define SWITCH_PULL_DOWN        0x00000010
-#define SWITCH_PRESSED          0x00000000
-#define SWITCH_RELEASED         0x00000001
+#define SWITCH_PRESSED          0x00000001
+#define SWITCH_RELEASED         0x00000000
 
 typedef enum{
     SWITCH_OK,

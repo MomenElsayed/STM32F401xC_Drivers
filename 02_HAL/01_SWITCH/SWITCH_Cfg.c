@@ -16,7 +16,7 @@ const SWITCH_Cfg_t Switches[_SWITCH_NUM]=
 {
     [SWITCH_Fire]={
         .port = GPIO_PORT_A,
-        .pin = GPIO_PIN_1,
+        .pin = GPIO_PIN_7,
         .dir = SWITCH_PULL_UP,
     }
 };
