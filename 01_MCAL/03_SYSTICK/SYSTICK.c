@@ -51,7 +51,7 @@ SYSTICK_ErrorStatus_t SYSTICK_start(u32 SYSTICK_Clk)
 SYSTICK_ErrorStatus_t SYSTICK_setTimeMS(u32 timeMS)
 {
 	SYSTICK_ErrorStatus_t Error_Status = SYSTICK_OK;
-	u32 loadValue = ((timeMS/1000)*SYSTICK_CLK_VALUE)-1;
+	u32 loadValue = ((timeMS*SYSTICK_CLK_VALUE)/1000)-1;
 	if (loadValue > SYSTICK_MAX_LOAD_VAL)
 	{
 		Error_Status = SYSTICK_InvalidTicksValue;
