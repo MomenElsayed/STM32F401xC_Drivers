@@ -49,16 +49,17 @@
 
 #endif /* LCD_BIT_MODE_SELECT == LCD_EIGHT_BITS_MODE */
 
+
+
+/*******************************************************************************
+ *                              Static Functions	                           *
+ *******************************************************************************/
 static void LCD_InitStateMachine();
 static void LCD_setTriggerEnable(u8 value);
 static void LCD_writeCommandAsync(u8 Copy_u8command);
 static void LCD_writeDataAsync(u8 Copy_u8data);
 static void LCD_writeProc();
 static void LCD_clearProc();
-
-
-
-
 
 /*******************************************************************************
  *                        	  Types Declaration                                *
@@ -118,21 +119,25 @@ typedef struct{
 	LCD_ReqType_t Req_type;
 }LCD_UserReq_t;
 
+/*******************************************************************************
+ *                              Global Variables	                           *
+ *******************************************************************************/
 u8 send_higher_nibble = 1;
 u8 LCD_triggerEnableState = LCD_TRIGGER_ENABLE_LOW;
 u8 remaining_chars = 0;
 
 static LCD_UserReq_t LCD_UserReq;
 
-
-
-
-
 LCD_InitMode_t LCD_initMode = LCD_PowerOn;
 LCD_State_t	LCD_state = LCD_initState;
 LCD_writeState_t LCD_writeState = Write_Start;
 LCD_clearState_t LCD_clearState = Clear_Start;
 
+
+
+/*******************************************************************************
+ *                              	Functions   	                           *
+ *******************************************************************************/
 
 LCD_enumErrorState_t LCD_clearScreen()
 {

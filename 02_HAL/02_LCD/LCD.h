@@ -78,66 +78,96 @@ typedef enum{
  *                              extern Variables	                           *
  *******************************************************************************/
 extern LCD_strPinCfg_t LCD_strCfg[NUMBER_OF_LCD_PINS];
-/*
- * Custom Characters for LCD
- * -------------------------
- * Define custom characters for the LCD based on the specified number of required special characters.
- */
-
-#if NUMBER_OF_REQ_SPECIAL_CHAR == 1
-    extern u8 customChar1[8];
-#elif NUMBER_OF_REQ_SPECIAL_CHAR == 2
-    extern u8 customChar1[8];
-    extern u8 customChar2[8];
-#elif NUMBER_OF_REQ_SPECIAL_CHAR == 3
-    extern u8 customChar1[8];
-    extern u8 customChar2[8];
-    extern u8 customChar3[8];
-#elif NUMBER_OF_REQ_SPECIAL_CHAR == 4
-    extern u8 customChar1[8];
-    extern u8 customChar2[8];
-    extern u8 customChar3[8];
-    extern u8 customChar4[8];
-#elif NUMBER_OF_REQ_SPECIAL_CHAR == 5
-    extern u8 customChar1[8];
-    extern u8 customChar2[8];
-    extern u8 customChar3[8];
-    extern u8 customChar4[8];
-    extern u8 customChar5[8];
-#elif NUMBER_OF_REQ_SPECIAL_CHAR == 6
-    extern u8 customChar1[8];
-    extern u8 customChar2[8];
-    extern u8 customChar3[8];
-    extern u8 customChar4[8];
-    extern u8 customChar5[8];
-    extern u8 customChar6[8];
-#elif NUMBER_OF_REQ_SPECIAL_CHAR == 7
-    extern u8 customChar1[8];
-    extern u8 customChar2[8];
-    extern u8 customChar3[8];
-    extern u8 customChar4[8];
-    extern u8 customChar5[8];
-    extern u8 customChar6[8];
-    extern u8 customChar7[8];
-#elif NUMBER_OF_REQ_SPECIAL_CHAR == 8
-    extern u8 customChar1[8];
-    extern u8 customChar2[8];
-    extern u8 customChar3[8];
-    extern u8 customChar4[8];
-    extern u8 customChar5[8];
-    extern u8 customChar6[8];
-    extern u8 customChar7[8];
-    extern u8 customChar8[8];
-#endif	/*NUMBER_OF_REQ_SPECIAL_CHAR*/
 
 
 /*******************************************************************************
  *                              Functions Prototypes                           *
  *******************************************************************************/
+/*****************************************************
+ * Function: LCD_InitAsync
+ * Description: Initializes the LCD pins asynchronously based on the selected bit mode.
+ *
+ * Parameters: None
+ *
+ * Return:
+ *   - LCD_enumErrorState_t: Error state indicating the success or failure of the initialization.
+ *     - LCD_enumOK: Initialization successful.
+ *
+ * Usage:
+ *   LCD_enumErrorState_t status = LCD_InitAsync();
+ *   if(status == LCD_enumOK) {
+ *     // LCD initialization process initiated successfully
+ *   } else {
+ *     // Handle error
+ *   }
+ *
+ * Notes:
+ *   - This function initializes the LCD pins asynchronously based on the selected bit mode.
+ *   - Each LCD pin is configured as an output with a specified speed.
+ *   - Configuration is based on the bit mode selected (eight bits or four bits).
+ *   - The actual initialization process may be handled asynchronously by the GPIO module.
+ *****************************************************/
 LCD_enumErrorState_t LCD_InitAsync();
 
+/*****************************************************
+ * Function: LCD_clearScreen
+ * Description: Initiates the process to clear the LCD screen.
+ *
+ * Parameters: None
+ *
+ * Return:
+ *   - LCD_enumErrorState_t: Error state indicating the success or failure of the operation.
+ *     - LCD_enumOK: Operation successful.
+ *
+ * Usage:
+ *   LCD_enumErrorState_t status = LCD_clearScreen();
+ *   if(status == LCD_enumOK) {
+ *     // LCD screen clearing process initiated successfully
+ *   } else {
+ *     // Handle error
+ *   }
+ *
+ * Notes:
+ *   - This function sets the LCD user request state to busy and initializes the LCD
+ *     clear request type. It also sets the clear state to start the clearing process.
+ *   - The LCD screen clearing process will be handled asynchronously.
+ *   - The LCD module must be in an operational state (LCD_operationalState) and not
+ *     handling any other user requests (LCD_ReqIdle) for the clearing process to begin.
+ *****************************************************/
 LCD_enumErrorState_t LCD_clearScreen();
 
+/*****************************************************
+ * Function: LCD_WriteStringAsync
+ * Description: Initiates asynchronous writing of a string to the LCD screen.
+ *
+ * Parameters:
+ *   - str: Pointer to the string to be written.
+ *   - size: Size of the string to be written.
+ *   - x_pos: X-coordinate position on the LCD screen.
+ *   - y_pos: Y-coordinate position on the LCD screen.
+ *
+ * Return:
+ *   - LCD_enumErrorState_t: Error state indicating the success or failure of the operation.
+ *     - LCD_enumOK: Operation successful.
+ *     - LCD_enumNullPointer: Null pointer provided for the string.
+ *     - LCD_enumInvalidLineNumber: Invalid line number provided.
+ *     - LCD_enumInvalidColNumber: Invalid column number provided.
+ *
+ * Usage:
+ *   LCD_enumErrorState_t status = LCD_WriteStringAsync("Hello", 5, 0, 0);
+ *   if(status == LCD_enumOK) {
+ *     // Asynchronous writing process initiated successfully
+ *   } else {
+ *     // Handle error
+ *   }
+ *
+ * Notes:
+ *   - This function initiates the asynchronous writing of a string to the LCD screen.
+ *   - The string, its size, and the position on the screen are provided as parameters.
+ *   - If the LCD module is idle and in operational state, the provided string, size,
+ *     and position are assigned to the LCD user request structure to begin the writing process.
+ *   - The actual writing process may be handled asynchronously by the LCD module.
+ *****************************************************/
 LCD_enumErrorState_t LCD_WriteStringAsync(const char* str,u8 size, u8 x_pos, u8 y_pos);
 
 

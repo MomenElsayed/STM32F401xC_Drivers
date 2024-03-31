@@ -36,14 +36,4 @@ LCD_strPinCfg_t LCD_strCfg[NUMBER_OF_LCD_PINS] = {
     [E]   = {.port = GPIO_PORT_A, .pin = GPIO_PIN_10},
 };
 
-/* Custom Character Definition */
-u8 customChar1[8] = {
-    0b00000,
-    0b00000,
-    0b00000,
-    0b11111,
-    0b00101,
-    0b00010,
-    0b00000,
-    0b00000
-};
+
