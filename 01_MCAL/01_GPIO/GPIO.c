@@ -10,13 +10,14 @@
  *
  *******************************************************************************/
 
-#include "GPIO.h"
+#include "MCAL/GPIO/GPIO.h"
 
 #define GPIO_CLR_MASK				0x00000003U
 #define GPIO_MODE_MASK				0x00000003U		/*Input,output,AF or AN*/
 #define GPIO_TYPE_MASK				0x00000001U		/*PushPull or OpenDrain*/
 #define GPIO_PUPD_MASK				0x00000018U
 #define GPIO_BSRR_RESET_OFFSET		16U
+#define GPIO_AFR_CLEAR_MASK 		0x0000000FU
 
 #define IS_GPIO_MODE(MODE) (((MODE) == GPIO_MODE_IN_FL)               ||\
                             ((MODE) == GPIO_MODE_IN_PU)               ||\
@@ -151,6 +152,37 @@ GPIO_ErrorStatus_t GPIO_getPinValue(void* GPIO_Port, u8 GPIO_pin, u8* GPIO_State
 	if(Error_status == GPIO_OK)
 	{
 		*GPIO_State = (((GPIO_Registers_t*)GPIO_Port)->IDR & (1 << GPIO_pin)) ? GPIO_STATE_SET : GPIO_STATE_RESET;
+	}
+	return Error_status;
+}
+
+GPIO_ErrorStatus_t GPIO_CfgAlternateFn(void* GPIO_Port, u32 GPIO_Pin, u32 GPIO_AF)
+{
+	GPIO_ErrorStatus_t Error_status = GPIO_OK;
+	u32 AFR_value = 0;
+	if(GPIO_Port == NULL_PTR)
+	{
+		Error_status = GPIO_NULLPTR;
+	}
+	else if (GPIO_Pin > GPIO_PIN_15)
+	{
+		Error_status = GPIO_InvalidPin;
+	}
+	else{
+		if(GPIO_Pin > GPIO_PIN_7)
+		{
+			AFR_value = ((GPIO_Registers_t*)GPIO_Port)->AFRH;
+			AFR_value &= ~(GPIO_AFR_CLEAR_MASK << (GPIO_Pin * 4U));
+			AFR_value |= (GPIO_AF << (GPIO_Pin * 4U));
+			((GPIO_Registers_t*)GPIO_Port)->AFRH = AFR_value;
+		}
+		else
+		{
+			AFR_value = ((GPIO_Registers_t*)GPIO_Port)->AFRL;
+			AFR_value &= ~(GPIO_AFR_CLEAR_MASK << (GPIO_Pin * 4U));
+			AFR_value |= (GPIO_AF << (GPIO_Pin * 4U));
+			((GPIO_Registers_t*)GPIO_Port)->AFRL = AFR_value;
+		}
 	}
 	return Error_status;
 }

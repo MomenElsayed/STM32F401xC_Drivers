@@ -12,7 +12,7 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
-#include "std_types.h"
+#include "LIB/std_types.h"
 
 /*******************************************************************************
  *                                Type Decelerations                           *
@@ -61,6 +61,24 @@
 #define GPIO_MODE_AF_OD_PD 	0x00000016
 
 #define GPIO_MODE_AN       	0x00000003
+
+/*******Macros for the Alternate Functions*******/
+#define GPIO_FUNC_AF0       0x00000000
+#define GPIO_FUNC_AF1       0x00000001
+#define GPIO_FUNC_AF2       0x00000002
+#define GPIO_FUNC_AF3       0x00000003
+#define GPIO_FUNC_AF4       0x00000004
+#define GPIO_FUNC_AF5       0x00000005
+#define GPIO_FUNC_AF6       0x00000006
+#define GPIO_FUNC_AF7       0x00000007
+#define GPIO_FUNC_AF8       0x00000008
+#define GPIO_FUNC_AF9       0x00000009
+#define GPIO_FUNC_AF10      0x0000000A
+#define GPIO_FUNC_AF11      0x0000000B
+#define GPIO_FUNC_AF12      0x0000000C
+#define GPIO_FUNC_AF13      0x0000000D
+#define GPIO_FUNC_AF14      0x0000000E
+#define GPIO_FUNC_AF15      0x0000000F
 
 /*******Macros for the GPIO pin speeds*******/
 #define GPIO_SPEED_LOW     	0x00000000
@@ -171,5 +189,34 @@ GPIO_ErrorStatus_t GPIO_setPinValue(void* GPIO_Port, u8 GPIO_pin, u8 GPIO_State)
  *****************************************************/
 GPIO_ErrorStatus_t GPIO_getPinValue(void* GPIO_Port, u8 GPIO_pin, u8* GPIO_State);
 
+/*****************************************************
+ * Function: GPIO_CfgAlternateFn
+ * Description: Configures alternate function for a GPIO pin.
+ *
+ * Parameters:
+ *   - GPIO_Port: Pointer to the GPIO port base address.
+ *   - GPIO_Pin: The GPIO pin number.
+ *   - GPIO_AF: The alternate function value to be configured.
+ *
+ * Return:
+ *   - GPIO_ErrorStatus_t: Error status indicating the success or failure of the configuration.
+ *     - GPIO_OK: Configuration successful.
+ *     - GPIO_NULLPTR: GPIO port pointer is NULL.
+ *     - GPIO_InvalidPin: Invalid GPIO pin number.
+ *
+ * Usage:
+ *   GPIO_ErrorStatus_t status = GPIO_CfgAlternateFn(GPIOA, GPIO_PIN_0, GPIO_AF_USART1);
+ *   if(status == GPIO_OK) {
+ *     // Alternate function configured successfully
+ *   } else {
+ *     // Handle error
+ *   }
+ *
+ * Notes:
+ *   - This function configures the alternate function for a GPIO pin.
+ *   - It accepts the GPIO port base address, pin number, and the alternate function value.
+ *   - If the pin number is greater than 7, it configures the alternate function in AFRH register, otherwise in AFRL register.
+ *****************************************************/
+GPIO_ErrorStatus_t GPIO_CfgAlternateFn(void* GPIO_Port, u32 GPIO_Pin, u32 GPIO_AF)
 
 #endif /* GPIO_H_ */
