@@ -172,15 +172,15 @@ GPIO_ErrorStatus_t GPIO_CfgAlternateFn(void* GPIO_Port, u32 GPIO_Pin, u32 GPIO_A
 		if(GPIO_Pin > GPIO_PIN_7)
 		{
 			AFR_value = ((GPIO_Registers_t*)GPIO_Port)->AFRH;
-			AFR_value &= ~(GPIO_AFR_CLEAR_MASK << (GPIO_Pin * 4U));
-			AFR_value |= (GPIO_AF << (GPIO_Pin * 4U));
+			AFR_value &= ~(GPIO_AFR_CLEAR_MASK << ((GPIO_Pin - 8) * 4U));
+			AFR_value |= (GPIO_AF << ((GPIO_Pin - 8) * 4U));
 			((GPIO_Registers_t*)GPIO_Port)->AFRH = AFR_value;
 		}
 		else
 		{
 			AFR_value = ((GPIO_Registers_t*)GPIO_Port)->AFRL;
-			AFR_value &= ~(GPIO_AFR_CLEAR_MASK << (GPIO_Pin * 4U));
-			AFR_value |= (GPIO_AF << (GPIO_Pin * 4U));
+			AFR_value &= ~(GPIO_AFR_CLEAR_MASK << ((GPIO_Pin) * 4U));
+			AFR_value |= (GPIO_AF << ((GPIO_Pin) * 4U));
 			((GPIO_Registers_t*)GPIO_Port)->AFRL = AFR_value;
 		}
 	}
