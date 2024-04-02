@@ -9,7 +9,7 @@
  * Author: Momen Elsayed Shaban
  *
  *******************************************************************************/
-#include "RCC.h"
+#include "MCAL/RCC/RCC.h"
 
 
 /*******************************************************************************
@@ -163,7 +163,7 @@ RCC_enuErrorState_t RCC_cfgPLLClk(u8 PLL_M, u16 PLL_N, u8 PLL_Q, u8 PLL_P)
 		u32 loc_temp_RCC_PLLCFGR = RCC->PLLCFGR;					/*Save the Value of the register in case of any interrupt during this function*/
 		loc_temp_RCC_PLLCFGR &= RCC_PLLCFGR_MNPQ_MASK;				/*Reset all the values of the register (M-N-Q-P)*/
 		loc_temp_RCC_PLLCFGR |= (PLL_M << RCC_PLLCFGR_PLLM) | (PLL_N << RCC_PLLCFGR_PLLN) | (PLL_Q << RCC_PLLCFGR_PLLQ) \
-								| (PLL_P << (2U * RCC_PLLCFGR_PLLP + 2U));	/*Converting from 0 in the register to input user 2 0->2 , 1->4 ,...*/
+								| (((2U * PLL_P) + 2U) << RCC_PLLCFGR_PLLP );	/*Converting from 0 in the register to input user 2 0->2 , 1->4 ,...*/
 		RCC->PLLCFGR = loc_temp_RCC_PLLCFGR;
 	}
 	else
